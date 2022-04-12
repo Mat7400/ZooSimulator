@@ -1,0 +1,10 @@
+C:\Users\матвей1\source\repos\ZooSimulator\bin\Debug\ZooSimulator.exe.config
+C:\Users\матвей1\source\repos\ZooSimulator\bin\Debug\ZooSimulator.exe
+C:\Users\матвей1\source\repos\ZooSimulator\bin\Debug\ZooSimulator.pdb
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.csprojAssemblyReference.cache
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.Form1.resources
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.Properties.Resources.resources
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.csproj.GenerateResource.cache
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.csproj.CoreCompileInputs.cache
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.exe
+C:\Users\матвей1\source\repos\ZooSimulator\obj\Debug\ZooSimulator.pdb

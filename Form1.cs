@@ -56,7 +56,29 @@ namespace ZooSimulator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Class1 class1 = new Class1();
+            class1.main();
+        }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string f = textBox1.Text;
+            //преобразование строки в текст - парсинг
+            //дробное число - по умолчанию через , а не через .
+            float md = float.Parse(f);
+            //второй способ это конвертация
+            double dd = Convert.ToDouble(f);
+            Class1 class1 = new Class1();
+            //присваиваем полю класса переменную
+            class1.myDouble = dd;
+            //вызываем функцию у класса - тоже через . и функция должна быть public
+            double res = class1.x2();
+            MessageBox.Show(res.ToString());
         }
     }
 }
