@@ -26,9 +26,9 @@ namespace ZooSimulator
         //
 //2. Работа с Гитхаб и ее важность. Заливка предыдущих написанных программ на гитхаб. Мердж, пулл, пуш реквесты. Как это все делать без консоли встроенными средствами Вижуал Студии.
 //
-//3. Типы значений и ссылочные (Value Reference). Boxing-unboxing.Null тип. Примеры.
+//3. Типы значений и ссылочные (Value Reference). Boxing-unboxing. Null тип. Примеры.
 //
-//4. Методы: функции и процедуры.Массивы.Передача в функцию и получение данных из нее.
+//4. Методы: функции и процедуры. Массивы. Передача в функцию и получение данных из нее.
 //
 //5. Классы C#. Конструкторы. Роль понятий this, static. Примеры с зоопарком.
 //
@@ -79,6 +79,82 @@ namespace ZooSimulator
             //вызываем функцию у класса - тоже через . и функция должна быть public
             double res = class1.x2();
             MessageBox.Show(res.ToString());
+            //ДЗ : сохранить класс class1 в файл используя XML Writer 
+            //15.04 ДЗ остается. как делать: https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/concepts/serialization/how-to-write-object-data-to-an-xml-file
+            //
+
+            
+        }
+        /// <summary>
+        /// У функции есть название (имя фукнции) - AddStringAndnumber
+        /// есть тип результата который она вернет - string
+        /// и в скобках есть параметры с которыми она работает, строка и число
+        /// </summary>
+        /// <param name="instring">строка</param>
+        /// <param name="innumber">чиcло</param>
+        /// <returns>строка пробел число</returns>
+        public string AddStringAndnumber(string instring, int innumber)
+        {
+            string result = instring + " " + innumber.ToString();
+            return result;
+        }
+        public string i(string name, string surname, int chis)
+        {
+            string resalt = name + " " + surname + " " + chis.ToString() + " ";
+            return resalt;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //массивы. процедуры и функции.
+            // выозвы Convert.ToDouble и прочие MessageBox.Show это функции встроенные в сам язык
+            // мы сделаем фукнции по работе с массивами
+            // сделаем функцию строки и числа
+            string name = "matvei";
+            string surname = "familia";
+            int chis = 987;
+            //MessageBox.Show(AddStringAndnumber(name, chis));
+            MessageBox.Show(i(name, surname, chis));
+            //про массивы - набор одинаковых по типу элементов
+            //у С# много встроенных в язык возможнестей по работе с массивами - сортировка, длина
+            int[] arr = new int[10];
+            for (int i = 0; i < 10; i++)
+            {
+                arr[i] = i * 2;
+            }
+            //встроенная сортировка
+            arr.OrderBy(x => x);
+
+            Class1[] arrclass = new Class1[5];
+            for (int i = 0; i < arrclass.Length; i++)
+            {
+                arrclass[i] = new Class1();
+                arrclass[i].myDouble = i * 3.3;
+             }
+            //список где может быть сколько угодно элементов
+            List<int> lst = new List<int>();
+            for (int i = 0; i < 7; i++)
+            {
+                lst.Add(i * 2);
+            }
+            lst.Sort();
+            //фукнция по работе с массивом
+            var res = listx5(lst);
+            for (int i = 0; i < res.Count; i++)
+            {
+                MessageBox.Show( res[i].ToString() );
+            }
+        }
+        //функция по рботе со списком List<int> lst, умножает на 5 
+        public List<int> listx5(List<int> lst)
+        {
+            //второй список куда мы складываем результат, с таким же размером как lst
+            List<int> vs = new List<int>(lst.Count);
+
+            for(int sc = 0;sc < lst.Count; sc++)
+            {
+                vs.Add(  lst[sc] * 5);
+            }
+            return vs;
         }
     }
 }
