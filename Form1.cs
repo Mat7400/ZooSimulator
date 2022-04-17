@@ -73,17 +73,28 @@ namespace ZooSimulator
             float md = float.Parse(f);
             //второй способ это конвертация
             double dd = Convert.ToDouble(f);
-            Class1 class1 = new Class1();
+            Class1 myclass1 = new Class1();
             //присваиваем полю класса переменную
-            class1.myDouble = dd;
+            myclass1.myDouble = dd;
+            myclass1.myString = "XML serialization";
             //вызываем функцию у класса - тоже через . и функция должна быть public
-            double res = class1.x2();
+            double res = myclass1.x2();
             MessageBox.Show(res.ToString());
             //ДЗ : сохранить класс class1 в файл используя XML Writer 
             //15.04 ДЗ остается. как делать: https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/concepts/serialization/how-to-write-object-data-to-an-xml-file
             //
 
-            
+            //создаем штуку которая преобразует наш класс Class1 в XML и называется она XmlSerializer
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(typeof(Class1));
+            //путь к файлу
+            var path = "F:\\SerializationOverview.xml";
+            //создаем этот файл
+            System.IO.FileStream file = System.IO.File.Create(path);
+            //используем  XmlSerializer чтоб записать myclass1 в файл   
+            writer.Serialize(file, myclass1);
+            file.Close();
+
         }
         /// <summary>
         /// У функции есть название (имя фукнции) - AddStringAndnumber
@@ -136,13 +147,32 @@ namespace ZooSimulator
             {
                 lst.Add(i * 2);
             }
+            //сортировка списке
             lst.Sort();
             //фукнция по работе с массивом
             var res = listx5(lst);
-            for (int i = 0; i < res.Count; i++)
+            //for (int i = 0; i < res.Count; i++)
+            //{
+            //    MessageBox.Show( res[i].ToString() );
+            //}
+            //список строк
+            List<string> lsts = new List<string>();
+            //ДЗ от 15.04: заполнить список строк 7 строками bbb fff ddd ccc eee aaa
+            //именно в таком порядке
+            //сортировка этого списка и вывести его в мессаджбокс
+            lsts.Add("bbb");
+            lsts.Add("fff");
+            lsts.Add("ccc");
+            lsts.Add("ddd");
+            lsts.Add("eee");
+            lsts.Add("aaa");
+            lsts.Sort();
+            string resLst = "";
+            foreach (var mystring in lsts)
             {
-                MessageBox.Show( res[i].ToString() );
+                resLst = resLst + " "+ mystring + " ";
             }
+            MessageBox.Show(resLst);
         }
         //функция по рботе со списком List<int> lst, умножает на 5 
         public List<int> listx5(List<int> lst)
@@ -155,6 +185,37 @@ namespace ZooSimulator
                 vs.Add(  lst[sc] * 5);
             }
             return vs;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            testAnimal dog = new testAnimal();
+            dog.name = "ZARA";
+            dog.numberPaws = 4;
+            dog.hasTail = true;
+            dog.canFLY = false;
+            //ДЗ от 17.04 - сохранить собаку в файл XML
+            //  F:\\SerializationOverview.xml
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //список чисел
+            List<int> lstInt = new List<int>();
+            Random random = new Random();
+            //ДЗ от 17.04: заполнить список строк 7 случайными числами от 1 до 100
+            //вывести список который получится до сортировки
+            //сортировка этого списка и вывести его в мессаджбокс отсортированный
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Dog zara = new Dog();
+            zara.name = "zara";
+            zara.numberPaws = 4;
+            zara.naskolkoKrasivaya = 100;
+            zara.VetPasport = "vet ok";
+            MessageBox.Show(zara.gaf());
         }
     }
 }

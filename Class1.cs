@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZooSimulator
 {
-    class Class1
+    public class Class1
     {
-        string myString = "";
+        public string myString = "";
         int myInt = 0;
         public double myDouble = 1.5;
         float myFloat = 2.7f;
