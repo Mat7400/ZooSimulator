@@ -12,43 +12,7 @@ namespace ZooSimulator
 {
     public partial class Form1 : Form
     {
-        // Делаем симулятор зоопарка. Разные животные - это разные Классы (ООП)
-        // у них есть свои свойства разные (ХП,Голод,ЖАЖДА,количество лап,..)
-        // есть кнопки управления - вызов событий и делегатов, функций Классов 
-        // и Сохранения и Загрузки прогресса - работа с файлами
-        // плюс Сохранение в "базу" - работа с SQL
-        // используем Winwdows Forms для отображения результатов (текст и Изображения)
-        // Животные как классы - сделаем и работу с наследованием и работу с Интерфейсами
-        // при вызове событий - работа с разными массивами чтоб посмотреть их отличия
-        //
-//        1. Преобразования типов.Явные, неявные.Универсальный класс Object.
-        //Сериализация в XML.
-        //
-//2. Работа с Гитхаб и ее важность. Заливка предыдущих написанных программ на гитхаб. Мердж, пулл, пуш реквесты. Как это все делать без консоли встроенными средствами Вижуал Студии.
-//
-//3. Типы значений и ссылочные (Value Reference). Boxing-unboxing. Null тип. Примеры.
-//
-//4. Методы: функции и процедуры. Массивы. Передача в функцию и получение данных из нее.
-//
-//5. Классы C#. Конструкторы. Роль понятий this, static. Примеры с зоопарком.
-//
-//6. ООП.Инкапсуляция, наследование, полиморфизм.Введение.
-//
-//7. Наследование.Protected, virtual, override. Роль интерфейсов.Примеры с зоопарком.
-//
-//8. Обработка исключений. Отслеживание StackTrace. Роль понятия finally.
-//
-//9. Работа с интерфейсами.Понятия as, is. Стандартный IEnumarable для циклов. Примеры с зоопарком.
-//
-//10. Коллекции.List, Dictionary, stack, очередь.Понятия FIFO, LIFO.
-//
-//11. Делегаты и их использование. Абстрактный реализатор функций.
-//
-//12. События и их использование. Подписки на события и их инициация.
-//
-//13. LINQ запросы. SQL запросы. Примеры с зоопарком.
-//
-//14. Время существования объектов.Сборка мусора. Сколько программа занимает в памяти?
+        
         public Form1()
         {
             InitializeComponent();
@@ -85,16 +49,16 @@ namespace ZooSimulator
             //
 
             //создаем штуку которая преобразует наш класс Class1 в XML и называется она XmlSerializer
-            System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(Class1));
-            //путь к файлу
-            var path = "F:\\SerializationOverview.xml";
-            //создаем этот файл
-            System.IO.FileStream file = System.IO.File.Create(path);
-            //используем  XmlSerializer чтоб записать myclass1 в файл   
-            writer.Serialize(file, myclass1);
-            file.Close();
-
+            //System.Xml.Serialization.XmlSerializer writer =
+            //    new System.Xml.Serialization.XmlSerializer(typeof(Class1));
+            ////путь к файлу
+            //var path = "F:\\SerializationOverview.xml";
+            ////создаем этот файл
+            //System.IO.FileStream file = System.IO.File.Create(path);
+            ////используем  XmlSerializer чтоб записать myclass1 в файл   
+            //writer.Serialize(file, myclass1);
+            //file.Close();
+            saveToXml(typeof(Class1), myclass1);
         }
         /// <summary>
         /// У функции есть название (имя фукнции) - AddStringAndnumber
@@ -196,6 +160,8 @@ namespace ZooSimulator
             dog.canFLY = false;
             //ДЗ от 17.04 - сохранить собаку в файл XML
             //  F:\\SerializationOverview.xml
+            //создаем штуку которая преобразует наш класс testAnimal в XML и называется она XmlSerializer
+            saveToXml(typeof(testAnimal), dog);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -203,9 +169,30 @@ namespace ZooSimulator
             //список чисел
             List<int> lstInt = new List<int>();
             Random random = new Random();
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
+            lstInt.Add(random.Next(1, 100));
             //ДЗ от 17.04: заполнить список строк 7 случайными числами от 1 до 100
             //вывести список который получится до сортировки
             //сортировка этого списка и вывести его в мессаджбокс отсортированный
+            string srtoka = "";
+            for(int ccc = 0;ccc < lstInt.Count; ccc++)
+            {
+                srtoka += lstInt[ccc].ToString() + " ";
+            }
+            MessageBox.Show(srtoka);
+            lstInt.Sort();
+            //
+            srtoka = "";
+            for (int ccc = 0; ccc < lstInt.Count; ccc++)
+            {
+                srtoka += lstInt[ccc].ToString() + " ";
+            }
+            MessageBox.Show("SORTED:" +srtoka);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -214,8 +201,49 @@ namespace ZooSimulator
             zara.name = "zara";
             zara.numberPaws = 4;
             zara.naskolkoKrasivaya = 100;
-            zara.VetPasport = "vet ok";
+            zara.VetPasport = "vet zara ok";
             MessageBox.Show(zara.gaf());
+            //создаем штуку которая преобразует наш класс testAnimal в XML и называется она XmlSerializer
+            //System.Xml.Serialization.XmlSerializer writer =
+            //    new System.Xml.Serialization.XmlSerializer(typeof(Dog));
+            ////путь к файлу
+            //var path = "F:\\SerializationOverviewDog2.xml";
+            ////создаем этот файл
+            //System.IO.FileStream file = System.IO.File.Create(path);
+            ////используем  XmlSerializer чтоб записать dog в файл   
+            //writer.Serialize(file, zara);
+            //file.Close();
+            saveToXml(typeof(Dog), zara);
+
+            //есть класс собак Dog а есть его экземпляры (объекты этого класса) sharik и zara
+            //у них названия полей (признаки) одинаковые а наполнение внутри разное
+            Dog sharik = new Dog();
+            sharik.name = "sharik";
+            sharik.numberPaws = 4;
+            sharik.naskolkoKrasivaya = 90;
+            sharik.VetPasport = "vet sharik ok";
+            MessageBox.Show(sharik.gaf());
+        }
+        public void saveToXml(Type saved, Object zara)
+        {
+            //создаем штуку которая преобразует наш класс testAnimal в XML и называется она XmlSerializer
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(saved);
+            //путь к файлу
+            var path = "F:\\save_"+saved.ToString()+".xml";
+            //создаем этот файл
+            System.IO.FileStream file = System.IO.File.Create(path);
+            //используем  XmlSerializer чтоб записать dog в файл   
+            writer.Serialize(file, zara);
+            file.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //проверить конструкторы
+            int paws = Convert.ToInt32(textBox1.Text);
+            testAnimal f = new testAnimal("test",true,true,paws);
+
         }
     }
 }
