@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<testAnimal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>ZARA</name>
+  <hasTail>true</hasTail>
+  <canFLY>false</canFLY>
+  <numberPaws>4</numberPaws>
+</testAnimal>

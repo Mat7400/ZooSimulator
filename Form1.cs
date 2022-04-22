@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace ZooSimulator
 {
@@ -222,7 +223,10 @@ namespace ZooSimulator
             sharik.numberPaws = 4;
             sharik.naskolkoKrasivaya = 90;
             sharik.VetPasport = "vet sharik ok";
-            MessageBox.Show(sharik.gaf());
+
+            //MessageBox.Show(sharik.gaf());
+            Dog sharik2 = new Dog(5, "vet ok", "sharik2", 4, true);
+            
         }
         public void saveToXml(Type saved, Object zara)
         {
@@ -243,7 +247,28 @@ namespace ZooSimulator
             //проверить конструкторы
             int paws = Convert.ToInt32(textBox1.Text);
             testAnimal f = new testAnimal("test",true,true,paws);
+            //Hamster
+            Hamster ham = new Hamster(99, "HOMA", false);
+            //сохраннение в файл - уже готовая функция! удобно
+            saveToXml(typeof(Hamster), ham);
+        }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //есть значит параметры и классы в файлах XML - их можно "при старте нашей программы"
+            //из файлов загружать
+            //можем сохранять животных и в Базе Данных SQL - задачи сохранить и загрузить те же
+            string filep = "F:\\save_ZooSimulator.Hamster.xml";
+            //XmlSerializer - превращает как классы в XML так и обратно из файла в класс C#
+            //а например в паскале этого нет
+            System.Xml.Serialization.XmlSerializer reader =
+                new System.Xml.Serialization.XmlSerializer(typeof(Hamster));
+            //чтение из нашего хмл файла лежащего по пути filep
+            System.IO.StreamReader file = new System.IO.StreamReader(filep);
+            //читаем и из файла создаем хомяка с помощью Deserialize
+            Hamster testH = (Hamster)reader.Deserialize(file);
+
+            file.Close();
         }
     }
 }

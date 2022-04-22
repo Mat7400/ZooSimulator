@@ -8,6 +8,7 @@ namespace ZooSimulator
 {
     public class testAnimal
     {
+        //эти параметры задаются по умолчанию при создании класса, потом меняются в конструкторе
         public string name = "";
         public bool hasTail = false;
         public bool canFLY = true;
@@ -23,6 +24,7 @@ namespace ZooSimulator
         public testAnimal(string incName, bool iTail, bool Fly, int paws)
         {
             if (paws >= 8) System.Windows.Forms.MessageBox.Show("BEWARE OF SPIDER");
+            //кусок кода 1 - выводится первым
             if (Fly) System.Windows.Forms.MessageBox.Show("IT CAN FLY");
 
             if (paws <= 1)
@@ -70,11 +72,82 @@ namespace ZooSimulator
     {
         public string VetPasport = "";
         public int naskolkoKrasivaya = 100;
+        public Dog()
+        {
+            VetPasport = "OK";
+        }
+        public Dog(int krasota)
+        {
+            if (krasota<10)
+            {
+                System.Windows.Forms.MessageBox.Show(" NE MILAYA");
+            }
+            naskolkoKrasivaya = krasota;
+        }
+        //вызываем базовый констуктор
+        public Dog(int krasota, string myvetpasport, string incName, int paws, bool fly) 
+            : base(incName,true,fly,paws)
+        {
+            //кусок кода 2 - выводится после базового констуктора класса testAnimal
+            if (fly) System.Windows.Forms.MessageBox.Show("DOGS can't FLY");
+
+            if (krasota < 10)
+            {
+                //проверки входных параметров позволяет их обработать
+                System.Windows.Forms.MessageBox.Show(" NE MILAYA");
+            }
+            naskolkoKrasivaya = krasota;
+            VetPasport = myvetpasport;
+
+        }
         public string gaf()
         {
             return name + " says gaf-gaf";
         }
     }
-    //ДЗ от 17.04 *: сделать класс хомячка с признаком насколько пушистый от 1 до 100
+    //ДЗ до 22.04: сделать класс хомячка с признаком насколько пушистый от 1 до 100
     //и фукнцией пищать
+    /// <summary>
+    /// класс Хомяк наследуется от Животного. кроме базовых 4 признаков и функции 
+    /// добавляется свой признак пушистость и функция пищание
+    /// </summary>
+    public class Hamster : testAnimal
+    {
+        /// <summary>
+        /// пушистость. при создании класса Хомяка она задается в 1 первым деом.
+        /// </summary>
+        public int pushistost = 1;
+        public string sqeek()
+        {
+            return "hamster says pipipi";
+        }
+        public Hamster()
+        {
+            //в базовом коснтрукторе - нет параметров, все по умолчанию
+            pushistost = 100;
+        }
+        public Hamster(int push)
+        {
+            if (push < 10)
+            {
+                System.Windows.Forms.MessageBox.Show(" Лысый ");
+            }
+            pushistost = push;
+        }
+        //вызываем базовый констуктор
+        public Hamster(int push, string incName, bool fly)
+            : base(incName, false, fly, 4)
+        {
+            //кусок кода 2 - выводится после базового констуктора класса testAnimal
+            if (fly) System.Windows.Forms.MessageBox.Show("Hamster can't FLY");
+
+            if (push < 10)
+            {
+                System.Windows.Forms.MessageBox.Show(" Лысый ");
+            }
+            pushistost = push;
+            
+
+        }
+    }
 }
