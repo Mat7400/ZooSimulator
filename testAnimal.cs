@@ -139,7 +139,15 @@ namespace ZooSimulator
             : base(incName, false, fly, 4)
         {
             //кусок кода 2 - выводится после базового констуктора класса testAnimal
-            if (fly) System.Windows.Forms.MessageBox.Show("Hamster can't FLY");
+            if (fly)
+            {
+                //Исключения. 1/0 или 4999555777 + 4999555777
+                //нестандартное поведение программы когда может быть ошибка
+                //программа может полностью прекратить работу
+                //чтобы продложить работу программы такие ошибки можно "ловить" - try {} catch{}
+                throw new Exception("Hamster can't FLY");
+                //System.Windows.Forms.MessageBox.Show("Hamster can't FLY");
+            }
 
             if (push < 10)
             {

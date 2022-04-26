@@ -245,12 +245,31 @@ namespace ZooSimulator
         private void button6_Click(object sender, EventArgs e)
         {
             //проверить конструкторы
-            int paws = Convert.ToInt32(textBox1.Text);
-            testAnimal f = new testAnimal("test",true,true,paws);
+            //int paws = Convert.ToInt32(textBox1.Text);
+            //testAnimal f = new testAnimal("test",true,true,paws);
             //Hamster
-            Hamster ham = new Hamster(99, "HOMA", false);
-            //сохраннение в файл - уже готовая функция! удобно
-            saveToXml(typeof(Hamster), ham);
+            Random rnd = new Random();
+            try
+            {
+                bool FLY = true;
+                Hamster ham = new Hamster(rnd.Next(), "HOMA", FLY);
+                //сохраннение в файл - уже готовая функция! удобно
+                saveToXml(typeof(Hamster), ham);
+            }
+            catch (Exception ex)
+            {
+                // ловит ошибки (БАГИ)
+                // что можно сделать: записать в ЛОГИ (текст) чтоб потом занть где исправить , 
+                // показать пользователю Дружелюбно
+                // можно продолжить программу и создать нормального хомяка
+
+                //ДЗ 26.04  СОЗДАТЬ текстовый фалй с информацией об ошибке (записать все поля ex)
+
+                bool FLY = false;
+                Hamster ham = new Hamster(rnd.Next(), "HOMA2", FLY);
+                //сохраннение в файл - уже готовая функция! удобно
+                //saveToXml(typeof(Hamster), ham);
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
