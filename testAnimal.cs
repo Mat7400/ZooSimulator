@@ -13,6 +13,19 @@ namespace ZooSimulator
         public bool hasTail = false;
         public bool canFLY = true;
         public int numberPaws = 2;
+        //голод. если дойдет до 100, умирает
+        public int hunger = 0;
+        public bool isAlive = true;
+        public void generateName(Random random)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 8; i++)
+            {
+                int ch = random.Next(65, 89);
+                sb.Append( ((char)ch).ToString() );
+            }
+            name = sb.ToString();
+        }
         /// <summary>
         /// конструктор - специальная функция которая при создании класса позволяет
         /// заполнить его поля и сделать проверки входных данных
@@ -46,6 +59,10 @@ namespace ZooSimulator
         public string BaseStr()
         {
             return name + " " + numberPaws.ToString();
+        }
+        public override string ToString()
+        {
+            return name + " hunger " + hunger.ToString();
         }
         public string saySmth()
         {

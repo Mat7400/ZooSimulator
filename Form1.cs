@@ -264,6 +264,7 @@ namespace ZooSimulator
                 // можно продолжить программу и создать нормального хомяка
 
                 //ДЗ 26.04  СОЗДАТЬ текстовый фалй с информацией об ошибке (записать все поля ex)
+                //(показать код по полученю курса валют из инета)
 
                 bool FLY = false;
                 Hamster ham = new Hamster(rnd.Next(), "HOMA2", FLY);
@@ -288,6 +289,57 @@ namespace ZooSimulator
             Hamster testH = (Hamster)reader.Deserialize(file);
 
             file.Close();
+        }
+        Random mainRnd = new Random();
+        List<testAnimal> zoopark = new List<testAnimal>();
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //fill
+            Cat cat = new Cat();
+            cat.generateName(mainRnd);
+            Dog dog = new Dog(100, "ok", "", 4, false);
+            dog.generateName(mainRnd);
+            Hamster ham = new Hamster(100, "", false);
+            ham.generateName(mainRnd);
+            zoopark.Add(cat);
+            zoopark.Add(dog);
+            zoopark.Add(ham);
+
+            timer1.Interval = 7000;
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //вызывается каждый 30 секунд
+            //у каждого животного голод изменяется на -10 сучайно
+            //еси гоод 100 оно умирает
+            //с вероятностью 1\10 может появиться новое ивотное
+            //информация выводится в текст бокс
+            //ДЗ: с вероятностью 1\10 может появиться новое животное - кошка
+            //и ее надо добавить в список zoopark
+            int koshka = mainRnd.Next(1, 10);
+
+            foreach (var animal in zoopark)
+            {
+                int hunger = mainRnd.Next(-10, 10);
+                animal.hunger += hunger;
+
+                string who = "animal";
+                if (animal is Cat)
+                { who = "cat"; }
+                if (animal is Dog)
+                { who = "dog"; }
+                if (animal is Hamster)
+                { who = "hamster"; }
+
+                textBoxProgress.Text += Environment.NewLine + " "+who+" " + animal.ToString();
+                if (animal.hunger > 12)
+                {
+                    timer1.Stop();
+                    MessageBox.Show("animal starve" + animal.ToString());
+                }
+            }
         }
     }
 }
