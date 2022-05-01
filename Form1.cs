@@ -330,6 +330,25 @@ namespace ZooSimulator
                 zooparkTalk.Add(catonok);
                 richTextBoxProgress.Text += Environment.NewLine + " появился новый котенок " + catonok.name;
             }
+            //get animals with 4 paws
+            //LINQ - language integrated Queries.
+            var animals = zoopark.Where(an => an.numberPaws == 4).ToList();
+            //get animals with name begin on A latter
+            var anA = zoopark.Select(an => an.name.StartsWith("A")).ToArray();
+            //sum
+            int sum = zoopark.Sum(an => an.numberPaws);
+            //sum in cycle
+            int sss = 0;
+            for(int c =0;c < zoopark.Count; c++)
+            {
+                sss += zoopark[c].numberPaws;
+            }
+
+            if (animals.Any() )
+            {
+                animals.Sort();
+            }
+            //var an2 = select an from zoopark where an.numberPaws == 4;
             foreach (var talkingAnimal in zooparkTalk)
             {
                 string talk = talkingAnimal.Talks();
