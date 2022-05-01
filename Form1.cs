@@ -292,6 +292,7 @@ namespace ZooSimulator
         }
         Random mainRnd = new Random();
         List<testAnimal> zoopark = new List<testAnimal>();
+        List<TalkingAnimal> zooparkTalk = new List<TalkingAnimal>();
         private void button8_Click(object sender, EventArgs e)
         {
             //fill
@@ -304,7 +305,9 @@ namespace ZooSimulator
             zoopark.Add(cat);
             zoopark.Add(dog);
             zoopark.Add(ham);
-
+            zooparkTalk.Add(cat);
+            zooparkTalk.Add(dog);
+            zooparkTalk.Add(ham);
             timer1.Interval = 7000;
             timer1.Start();
         }
@@ -319,11 +322,34 @@ namespace ZooSimulator
             //ДЗ: с вероятностью 1\10 может появиться новое животное - кошка
             //и ее надо добавить в список zoopark
             int koshka = mainRnd.Next(1, 10);
+            if (koshka == 5)
+            {
+                Cat catonok =  new Cat(); 
+                catonok.generateName(mainRnd);
+                zoopark.Add(catonok);
+                zooparkTalk.Add(catonok);
+                richTextBoxProgress.Text += Environment.NewLine + " появился новый котенок " + catonok.name;
+            }
+            foreach (var talkingAnimal in zooparkTalk)
+            {
+                string talk = talkingAnimal.Talks();
+                talkingAnimal.ChangeHunger(mainRnd);
+                string who = "animal";
+                //на практике: животные в списке zooparkTalk разные 
+                //но у них у всех одни и те же функции TalkingAnimal
+                if (talkingAnimal is Cat)
+                { who = "cat"; }
+                if (talkingAnimal is Dog)
+                { who = "dog"; }
+                if (talkingAnimal is Hamster)
+                { who = "hamster"; }
 
+                richTextBoxProgress.Text += Environment.NewLine + " " + who + " says " + talk.ToString();
+            }
             foreach (var animal in zoopark)
             {
-                int hunger = mainRnd.Next(-10, 10);
-                animal.hunger += hunger;
+                //int hunger = mainRnd.Next(-10, 10);
+                //animal.hunger += hunger;
 
                 string who = "animal";
                 if (animal is Cat)
@@ -333,13 +359,14 @@ namespace ZooSimulator
                 if (animal is Hamster)
                 { who = "hamster"; }
 
-                textBoxProgress.Text += Environment.NewLine + " "+who+" " + animal.ToString();
-                if (animal.hunger > 12)
+                richTextBoxProgress.Text += Environment.NewLine + " "+who+" " + animal.ToString();
+                if (animal.hunger > 20)
                 {
                     timer1.Stop();
-                    MessageBox.Show("animal starve" + animal.ToString());
+                    MessageBox.Show("animal starve " + who + " "  + animal.ToString());
                 }
             }
+            richTextBoxProgress.Text += Environment.NewLine + " ~~~~~~~~~~~~~~~~ ";
         }
     }
 }

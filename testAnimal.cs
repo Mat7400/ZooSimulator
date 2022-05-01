@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace ZooSimulator
 {
+    //Интерфейс с функциями говорить и изменить голод.
+    //реализовывает полиморфизм. то есть эти функции реализуются по-своему в каждом классе
+    //Интерфейс только определяет 1)возвращаемый тип функции - int
+    //2)название функции ChangeHunger 3) и ее параметры Random rnd
+    //то есть во всех классах Кошка, Собяка, Хомяк 
+    //код внутри функций свой но название, тип и параметры одинаковые.
+    public interface TalkingAnimal
+    {
+        string Talks();
+        int ChangeHunger(Random rnd);
+    }
     public class testAnimal
     {
         //эти параметры задаются по умолчанию при создании класса, потом меняются в конструкторе
@@ -68,15 +79,39 @@ namespace ZooSimulator
         {
             return "not definded";
         }
+        
     }
     /// <summary>
     /// класс кошки наследуется от Животного. кроме базовых 4 признаков и функции 
     /// добавляется свой признак poroda и функция meow
     /// </summary>
-    public class Cat : testAnimal
+    public class Cat : testAnimal, TalkingAnimal
     {
         public string poroda = "";
+        //инкапсуляция - принцип ООП. скрываем детали реализации (инкапсулируем их в приватные 
+        //функции) как бы засовывем в капсулу.
+        private int getChange(Random rnd)
+        {
+            int change = 5;
+
+            return rnd.Next(-change / 2, change);
+        }
+        public int ChangeHunger(Random rnd)
+        {
+            hunger += getChange(rnd);
+            if (hunger < 1)
+            {
+                hunger = 1;
+            }
+            return hunger;
+        }
+
         public string meow()
+        {
+            return "MEOW";
+        }
+
+        public string Talks()
         {
             return "MEOW";
         }
@@ -85,7 +120,7 @@ namespace ZooSimulator
     /// класс собаки наследуется от Животного. кроме базовых 4 признаков и функции 
     /// добавляется 2 своих признак VetPasport и naskolkoKrasivaya и функция гаф
     /// </summary>
-    public class Dog: testAnimal
+    public class Dog: testAnimal, TalkingAnimal
     {
         public string VetPasport = "";
         public int naskolkoKrasivaya = 100;
@@ -117,9 +152,27 @@ namespace ZooSimulator
             VetPasport = myvetpasport;
 
         }
+
+        public int ChangeHunger(Random rnd)
+        {
+            int change = 8;
+
+            hunger += rnd.Next(-change/2, change);
+            if (hunger < 1)
+            {
+                hunger = 1;
+            }
+            return hunger;
+        }
+
         public string gaf()
         {
             return name + " says gaf-gaf";
+        }
+
+        public string Talks()
+        {
+            return " gaf-gaf";
         }
     }
     //ДЗ до 22.04: сделать класс хомячка с признаком насколько пушистый от 1 до 100
@@ -128,7 +181,7 @@ namespace ZooSimulator
     /// класс Хомяк наследуется от Животного. кроме базовых 4 признаков и функции 
     /// добавляется свой признак пушистость и функция пищание
     /// </summary>
-    public class Hamster : testAnimal
+    public class Hamster : testAnimal , TalkingAnimal
     {
         /// <summary>
         /// пушистость. при создании класса Хомяка она задается в 1 первым деом.
@@ -138,6 +191,25 @@ namespace ZooSimulator
         {
             return "hamster says pipipi";
         }
+
+        public string Talks()
+        {
+            return "pipipi";
+        }
+
+        public int ChangeHunger(Random rnd)
+        {
+            int change = 4;
+
+            hunger += rnd.Next(-change/2, change);
+            if (hunger < 1)
+            {
+                hunger = 1;
+            }
+            return hunger;
+            
+        }
+
         public Hamster()
         {
             //в базовом коснтрукторе - нет параметров, все по умолчанию
