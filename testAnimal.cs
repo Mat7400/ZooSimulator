@@ -36,6 +36,8 @@ namespace ZooSimulator
                 sb.Append( ((char)ch).ToString() );
             }
             name = sb.ToString();
+            //paws
+            numberPaws = random.Next(1, 4);
         }
         /// <summary>
         /// конструктор - специальная функция которая при создании класса позволяет

@@ -293,7 +293,7 @@ namespace ZooSimulator
         Random mainRnd = new Random();
         List<testAnimal> zoopark = new List<testAnimal>();
         List<TalkingAnimal> zooparkTalk = new List<TalkingAnimal>();
-        private void button8_Click(object sender, EventArgs e)
+        private void ZooInit()
         {
             //fill
             Cat cat = new Cat();
@@ -308,10 +308,17 @@ namespace ZooSimulator
             zooparkTalk.Add(cat);
             zooparkTalk.Add(dog);
             zooparkTalk.Add(ham);
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ZooInit();
             timer1.Interval = 7000;
             timer1.Start();
         }
-
+        private int GetYears(testAnimal an)
+        {
+            return 2022 - an.numberPaws;
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             //вызывается каждый 30 секунд
@@ -330,24 +337,8 @@ namespace ZooSimulator
                 zooparkTalk.Add(catonok);
                 richTextBoxProgress.Text += Environment.NewLine + " появился новый котенок " + catonok.name;
             }
-            //get animals with 4 paws
-            //LINQ - language integrated Queries.
-            var animals = zoopark.Where(an => an.numberPaws == 4).ToList();
-            //get animals with name begin on A latter
-            var anA = zoopark.Select(an => an.name.StartsWith("A")).ToArray();
-            //sum
-            int sum = zoopark.Sum(an => an.numberPaws);
-            //sum in cycle
-            int sss = 0;
-            for(int c =0;c < zoopark.Count; c++)
-            {
-                sss += zoopark[c].numberPaws;
-            }
-
-            if (animals.Any() )
-            {
-                animals.Sort();
-            }
+            
+            
             //var an2 = select an from zoopark where an.numberPaws == 4;
             foreach (var talkingAnimal in zooparkTalk)
             {
@@ -386,6 +377,68 @@ namespace ZooSimulator
                 }
             }
             richTextBoxProgress.Text += Environment.NewLine + " ~~~~~~~~~~~~~~~~ ";
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int chto = 0;
+            Random rend = new Random();
+            zoopark.Clear();//clear
+            ZooInit();
+            //Задание
+            List<int> lstInt = new List<int>();
+            for (int chaunterr = 0;chaunterr < 1000; chaunterr++)
+            {
+                lstInt.Add(rend.Next(1, 100));
+                if (lstInt[chaunterr] > 50 && lstInt[chaunterr] < 60)
+                {
+                    chto++;
+                }
+            }
+            //linq - по сути то же самое но в одну строку, удобнее. Синтаксический сахар.
+            var list5060 = lstInt.Where(ch => ch > 50 && ch < 60);
+            int chtoLinq = lstInt.Where(ch => ch > 50 && ch < 60).Count();
+            MessageBox.Show("between 50 and 60 "+chto);
+            //get animals with 4 paws
+            //LINQ - language integrated Queries.
+            var animals = zoopark.Where(an => an.numberPaws == 4).ToList();
+            //LINQ syntax
+            var an3 = from animal3 in zoopark
+                      where animal3.numberPaws == 4
+                      orderby animal3.name
+                      select animal3;
+            //SQL: "SELECT an.name, an.numberPaws FROM animals AS an WHERE an.NumberPaws=4"
+            for (int i = 0; i < an3.Count() && i < 3; i++)
+            {
+                //first 3
+            }
+            var an4 = zoopark.Select
+                (annew => new { name = annew.name, Years = GetYears(annew) }).ToList();
+
+            foreach (var an4Element in an4)
+            {
+                MessageBox.Show(an4Element.name + " " + an4Element.Years);
+            }
+            //order by desc
+            var anD = zoopark.OrderByDescending(x => x.name);
+            //reverse array
+            zoopark.Reverse();
+            //get animals with name begin on A latter
+            var anA = zoopark.Select(an => an.name.StartsWith("A")).ToArray();
+            //sum
+            int sum = zoopark.Sum(an => an.numberPaws);
+            //sum in cycle
+            int sss = 0;
+            for (int c = 0; c < zoopark.Count; c++)
+            {
+                sss += zoopark[c].numberPaws;
+            }
+
+            if (animals.Any())
+            {
+                //sorting fast
+                animals.Sort();
+            }
         }
     }
 }
