@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.IO;
 
 namespace ZooSimulator
 {
@@ -439,6 +440,30 @@ namespace ZooSimulator
                 //sorting fast
                 animals.Sort();
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            List<person> people = new List<person>();
+            Random rnd = new Random();
+            //чтоб не читать файл с именами 1000 раз делаем это 1 раз в функции класса
+            var names = person.GetNames();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                //передаем в конструктор наш Генератор RND и список имен из файла
+                person np = new person(rnd, names, true);
+                people.Add(np);
+            }
+            //запишем в файл
+            string path = @"C:\names\txtList" + rnd.Next(1, 9999) + ".txt";
+            StreamWriter sw = File.CreateText(path);
+            foreach (var person in people)
+            {
+                sw.WriteLine(person.ToString());
+            }
+            sw.Close();
+            MessageBox.Show("OK");
         }
     }
 }

@@ -42,6 +42,7 @@ namespace ZooSimulator
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.richTextBoxProgress = new System.Windows.Forms.RichTextBox();
             this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -157,11 +158,22 @@ namespace ZooSimulator
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(759, 424);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(156, 61);
+            this.button10.TabIndex = 11;
+            this.button10.Text = "persons";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 1352);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.richTextBoxProgress);
             this.Controls.Add(this.button8);
@@ -196,6 +208,7 @@ namespace ZooSimulator
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.RichTextBox richTextBoxProgress;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }
 
