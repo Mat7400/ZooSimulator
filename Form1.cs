@@ -460,9 +460,23 @@ namespace ZooSimulator
             StreamWriter sw = File.CreateText(path);
             foreach (var person in people)
             {
-                sw.WriteLine(person.ToString());
+                if (person.YearBirth == 1990)
+                {
+                    //запись в файл
+                    sw.WriteLine(person.ToString());
+                }
+                
             }
             sw.Close();
+            //LINQ examples
+
+            //1) year equals 1990
+            var years = people.Where(person => person.YearBirth == 1990).ToList();
+            //2) name starts with "м"
+            var namesM = people.Select(person => person.fio.StartsWith("м")).ToList();
+            //3) name ends with "а"
+            var namesA = (from person in people where person.fio.EndsWith("а") select person).ToList();
+
             MessageBox.Show("OK");
         }
     }
