@@ -476,8 +476,33 @@ namespace ZooSimulator
             var namesM = people.Select(person => person.fio.StartsWith("м")).ToList();
             //3) name ends with "а"
             var namesA = (from person in people where person.fio.EndsWith("а") select person).ToList();
-
+            //SQL
             MessageBox.Show("OK");
+        }
+        //функция обработчки события
+        public int EventHandler(int a, int b, string n)
+        {
+            MessageBox.Show("a b str" + a + " " + b +" " +n );
+            return 0; 
+        }
+        public void CatMewo(string m)
+        {
+            MessageBox.Show("Cat says " +m);
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Random end = new Random();
+            Cat cat = new Cat();
+            //подписываемся на event
+            //говорим что на событие Adding указатеь на функция OnAdd будет вызвать EventHandler
+            cat.Adding += new testAnimal.OnAdd(EventHandler);
+            //EventHandler(cat.numberPaws,cat.numberPaws,"aaa"); 
+
+            
+            cat.generateName(end);
+            //подписываемся на мяу - обрабатываем ф нашей функции CatMewo
+            cat.WantMeow += new Cat.OnMeow(CatMewo);
+            cat.meow();
         }
     }
 }

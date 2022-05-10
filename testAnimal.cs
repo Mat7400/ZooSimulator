@@ -27,8 +27,16 @@ namespace ZooSimulator
         //голод. если дойдет до 100, умирает
         public int hunger = 0;
         public bool isAlive = true;
+        //делегат - указатеь на любая функция которая принимает 2 чиса и строку
+        public delegate int OnAdd(int x, int y, string name);
+        //название события
+        public event OnAdd Adding;
+        
+
         public void generateName(Random random)
         {
+            
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 8; i++)
             {
@@ -36,6 +44,9 @@ namespace ZooSimulator
                 sb.Append( ((char)ch).ToString() );
             }
             name = sb.ToString();
+            //вызываем событие с аргументами
+            if (Adding != null) Adding(1, 2, name); 
+
             //paws
             numberPaws = random.Next(1, 4);
         }
@@ -89,6 +100,11 @@ namespace ZooSimulator
     /// </summary>
     public class Cat : testAnimal, TalkingAnimal
     {
+        //деегат - функция принимащая строку
+        public delegate void OnMeow(string m);
+        //событие - кошка очет мяукнуть
+        public event OnMeow WantMeow;
+
         public string poroda = "";
         //инкапсуляция - принцип ООП. скрываем детали реализации (инкапсулируем их в приватные 
         //функции) как бы засовывем в капсулу.
@@ -110,6 +126,9 @@ namespace ZooSimulator
 
         public string meow()
         {
+            //вызываем событие
+            if (WantMeow != null) WantMeow("meowwq");
+
             return "MEOW";
         }
 
